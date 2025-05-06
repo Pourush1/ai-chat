@@ -1,4 +1,3 @@
-'use client';
 import { useState } from 'react';
 
 type ChatMessage = {
@@ -13,7 +12,18 @@ export default function Home() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(prompt);
+    setIsLoading(true);
+    setPrompt('');
+    setMessages((prevState) => [...prevState, { role: 'user', content: prompt }]);
+
+    const response = await fetch('/api/chat', {
+      method: 'POST',
+      body: JSON.stringify({ prompt }),
+    });
+
+    const result = await response.json();
+    setMessages((prevState) => [...prevState, { role: 'assistant', content: result }]);
+    setIsLoading(false);
   };
 
   return (
