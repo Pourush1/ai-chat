@@ -44,14 +44,25 @@ export default function Home() {
         ))}
       </div>
       {isLoading && <p>Loading...</p>}
-      <div className="flex justify-center">
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            value={prompt}
-            onChange={(e) => setPrompt(e.target.value)}
-          />
-          <button type="submit">Submit</button>
+      <div className="mb-8 flex justify-center gap-2">
+        <form onSubmit={handleSubmit} className="flex w-full max-w-3xl">
+          <fieldset className="flex w-full gap-2">
+            <input
+              autoFocus
+              placeholder="Enter your prompt"
+              required
+              value={prompt}
+              className="block w-full rounded border border-gray-300 p-2 outline-black"
+              onChange={(e) => setPrompt(e.target.value)}
+            />
+            <button
+              type="submit"
+              className="rounded bg-black px-3 py-1 font-medium text-white outline-offset-[3px] outline-black disabled:opacity-50"
+              disabled={isLoading}
+            >
+              Submit
+            </button>
+          </fieldset>
         </form>
       </div>
     </>

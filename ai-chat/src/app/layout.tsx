@@ -13,7 +13,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <header>
+          <h1>AI Chat</h1>
+        </header>
+        <main>{children}</main>
+        <footer>
+          <p>AI Chat</p>
+        </footer>
+      </body>
     </html>
   );
 }
