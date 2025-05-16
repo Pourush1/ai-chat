@@ -1,10 +1,12 @@
-import type { Metadata } from 'next';
-import './globals.css';
+import type { Metadata } from "next";
+import "./globals.css";
 
 export const metadata: Metadata = {
-  title: 'AI Chat',
-  description: 'Practice your AI skills',
+  title: "AI Chat",
+  description: "Practice your AI skills",
 };
+
+console.log("Test");
 
 export default function RootLayout({
   children,
