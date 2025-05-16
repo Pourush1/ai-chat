@@ -1,15 +1,9 @@
-import type { Metadata } from "next";
-import { Karla } from "next/font/google";
-import "./globals.css";
-
-const geistKarla = Karla({
-  variable: "--font-geist-karla",
-  subsets: ["latin"],
-});
+import type { Metadata } from 'next';
+import './globals.css';
 
 export const metadata: Metadata = {
-  title: "AI Chat",
-  description: "Practice your AI skills",
+  title: 'AI Chat',
+  description: 'Practice your AI skills',
 };
 
 export default function RootLayout({
@@ -19,13 +13,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistKarla.variable} font-karla antialiased`}>
-        <header className="bg-red-500 text-white p-4 mb-4 flex justify-center items-center">
-          <h1 className="text-2xl font-bold">AI Chat</h1>
+      <body>
+        <header>
+          <h1>AI Chat</h1>
         </header>
         <main>{children}</main>
         <footer>
-          <p className="text-center text-2xl font-bold">AI Chat</p>
+          <p>AI Chat</p>
         </footer>
       </body>
     </html>
