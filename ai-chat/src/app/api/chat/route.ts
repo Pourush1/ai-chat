@@ -12,8 +12,16 @@ export async function POST(req: Request) {
       messages: [{ role: "user", content: prompt }],
       max_tokens: 1000,
     });
-    console.log("Response", response);
-    return Response.json(response.content[0].text);
+
+    const textContent = response.content
+      .filter((block) => block.type === "text")
+      .map((block) => block.text || "")
+      .join("");
+
+    return Response.json({
+      content: textContent || "Sorry, I couldn't generate a response.",
+      stop_reason: response.stop_reason,
+    });
   } catch (error) {
     console.error("Error in chat API:", error);
     return Response.json(

@@ -9,6 +9,7 @@ type ChatMessage = {
 export default function Home() {
   const [prompt, setPrompt] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [stopReason, setStopReason] = useState("");
   const [messages, setMessages] = useState<ChatMessage[]>([]);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -25,10 +26,11 @@ export default function Home() {
       body: JSON.stringify({ prompt }),
     });
 
-    const result = await response.json();
+    const { content, stop_reason } = await response.json();
+    setStopReason(stop_reason);
     setMessages((prevState) => [
       ...prevState,
-      { role: "assistant", content: result },
+      { role: "assistant", content: content },
     ]);
     setIsLoading(false);
   };
@@ -64,6 +66,9 @@ export default function Home() {
             <p>{message.content}</p>
           </div>
         ))}
+      </div>
+      <div>
+        <p>{stopReason && `Stop Reason: ${stopReason}`}</p>
       </div>
     </>
   );
