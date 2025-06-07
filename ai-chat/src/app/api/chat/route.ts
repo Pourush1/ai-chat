@@ -1,25 +1,23 @@
-import OpenAI from 'openai';
+import { Anthropic } from "@anthropic-ai/sdk";
 
-const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+const client = new Anthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
 export async function POST(req: Request) {
   try {
     const { prompt } = await req.json();
-    const response = await client.chat.completions.create({
-      model: 'gpt-3.5-turbo', // Using a less expensive model
-      messages: [{ role: 'user', content: prompt }],
-      max_tokens: 150,
+    const response = await client.messages.create({
+      model: "claude-opus-4-20250514", // Using a less expensive model
+      messages: [{ role: "user", content: prompt }],
+      max_tokens: 1000,
     });
-    const responseText =
-      response.choices[0]?.message?.content ||
-      "Sorry, I couldn't generate a response.";
-    return Response.json(responseText);
+    console.log("Response", response);
+    return Response.json(response.content[0].text);
   } catch (error) {
-    console.error('Error in chat API:', error);
+    console.error("Error in chat API:", error);
     return Response.json(
-      'An error occurred processing your request. Please check API quota.',
+      "An error occurred processing your request. Please check API quota.",
       { status: 500 }
     );
   }
